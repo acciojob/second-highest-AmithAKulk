@@ -1,22 +1,17 @@
-//your JS code here. If required.
-function secondHighest(arr) {
-    var highest = -Infinity;
-    var secondHighest = -Infinity;
-    
-    for (var i = 0; i < arr.length; i++) {
-        if (arr[i] > highest) {
-            secondHighest = highest;
-            highest = arr[i];
-        } else if (arr[i] > secondHighest && arr[i] < highest) {
-            secondHighest = arr[i];
-        }
-    }
-    
-    return secondHighest;
-}
+const express = require('express');
+const path = require('path');
 
-console.log(secondHighest([5, 1, 2, 3, 4]));
-console.log(secondHighest([-1, -2, -3, -4, -5]));
-console.log(secondHighest([]));
-console.log(secondHighest([1]));
-console.log(secondHighest([1, 1, 1, 1, 1]));
+const app = express();
+
+app.use(express.static(__dirname))
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/main.html'));
+});
+//your code here
+app.post('/add', (req, res) => {
+  const {a,b} = req.body;
+  res.status(200).send(a+b);
+  // res.sendFile(path.join(__dirname + '/main.html'));
+});
+module.exports = app;
