@@ -1,17 +1,19 @@
-const express = require('express');
-const path = require('path');
+function secondHighest(arr) {
+    if (arr.length < 2) {
+        return -Infinity;
+    }
 
-const app = express();
+    let highest = -Infinity;
+    let secondHighest = -Infinity;
 
-app.use(express.static(__dirname))
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > highest) {
+            secondHighest = highest;
+            highest = arr[i];
+        } else if (arr[i] > secondHighest && arr[i] < highest) {
+            secondHighest = arr[i];
+        }
+    }
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/main.html'));
-});
-//your code here
-app.post('/add', (req, res) => {
-  const {a,b} = req.body;
-  res.status(200).send(a+b);
-  // res.sendFile(path.join(__dirname + '/main.html'));
-});
-module.exports = app;
+    return secondHighest;
+}
